@@ -1,0 +1,139 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.LoginModel
+
+@{ Layout = null; }
+
+<html>
+<body>
+    <hgroup class="title">
+        <meta charset="utf-8" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Mirrors V3</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        @Scripts.Render("~/bundles/modernizr")
+        <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/font-awesome.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/bootstrap-switch.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/jquery-jvectormap-1.2.2.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/smartadmin-production.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/smartadmin-skins.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+
+        <!-- GOOGLE FONT -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+        
+    </hgroup>
+
+    <div id="main" role="main" style="background: #fff; margin-left: 0px;">
+        <!-- MAIN CONTENT -->
+        <div id="content" class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-6 hidden-xs hidden-sm">
+                    <div class="hero">
+                        <br /><br /><br />
+                        <img src="@Url.Content("~/Content/img/LoginBG.jpg")" class="pull-right display-image" alt="" style="width:544px">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
+                            <h5 class="about-heading">About Mirrors V3?</h5>
+                            <p>
+                                Something about Mirrors v3.0 product goes here. Description of the product and major featurs are described here. It may also include desclaimer and legal notices.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="well no-padding" style="margin-top: 75px;">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { Class = "smart-form client-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <header>
+                                Sign In
+                            </header>
+
+                            <fieldset>
+
+                                <section>
+                                    <label class="label">Username</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-user"></i>
+                                        @Html.TextBoxFor(m => m.UserName)
+                                        @Html.ValidationMessageFor(m => m.UserName)
+                                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
+                                    </label>
+                                </section>
+
+                                <section>
+                                    <label class="label">Password</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        @Html.PasswordFor(m => m.Password)
+                                        @Html.ValidationMessageFor(m => m.Password)
+                                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                                    </label>
+                                    <div class="note">
+                                        <a href="forgotpassword.html">Forgot password?</a>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <label class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        <i></i>Stay signed in
+                                    </label>
+                                </section>
+                            </fieldset>
+                            <footer>
+                                <button type="submit" class="btn btn-primary">
+                                    Sign in
+                                </button>
+                            </footer>
+                        }
+
+                    </div>
+                    @Html.ValidationSummary(true)
+                    <br /><br /><br /><br /><br /><br />
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12">
+                        <h5 class="about-heading">About the Company</h5>
+                        <p>
+                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script>
+        if (!window.jQuery) {
+            document.write('<script src="js/libs/jquery-2.0.2.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+        if (!window.jQuery.ui) {
+            document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        }
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--[if IE 8]>
+        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+    <![endif]-->
+    <!-- MAIN APP JS FILE -->
+    <script src="@Url.Content("~/Scripts/sly.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-switch.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.swatchbook.js")"></script>
+    <script src="@Url.Content("~/Scripts/app.min.js")"></script>
+
+</body>
+</html>

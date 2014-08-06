@@ -1,0 +1,33 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Areas.Widgets.Models.PivotViewModel
+         
+<div class="row">
+
+    <div class="col col-4">
+        @Html.DevExpress().PivotCustomizationExtension(gridsettings =>
+    {
+        gridsettings.Name = "PivotGrid";
+        gridsettings.CallbackRouteValues = new { Area = "Widgets", Controller = "PivotView", Action = "PivotPartial" };
+        gridsettings.PivotCustomizationExtensionSettings.Name = "pivotCustomSetting";
+        gridsettings.PivotCustomizationExtensionSettings.AllowedLayouts
+    = DevExpress.XtraPivotGrid.Customization.CustomizationFormAllowedLayouts.All;
+        gridsettings.PivotCustomizationExtensionSettings.Layout = DevExpress.XtraPivotGrid.Customization.CustomizationFormLayout.StackedDefault;
+        gridsettings.PivotCustomizationExtensionSettings.AllowFilter = true;
+        gridsettings.PivotCustomizationExtensionSettings.AllowSort = true;
+        gridsettings.PivotCustomizationExtensionSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        gridsettings.PivotCustomizationExtensionSettings.Height = 500;
+        gridsettings.PivotCustomizationExtensionSettings.PreRender = (sender, e) =>
+        {
+            var pivotGrid = (DevExpress.Web.Mvc.MVCxPivotGrid)((DevExpress.Web.ASPxClasses.Internal.IRelatedControl)sender).MasterControl;
+            pivotGrid.OLAPConnectionString = Model.OlapConnectionString;
+            pivotGrid.RetrieveFields(DevExpress.XtraPivotGrid.PivotArea.FilterArea, false);
+        };
+
+    }).GetHtml()
+    </div>
+    <div class="col col-8">
+        @Html.Partial("PivotPartial")
+    </div>
+
+
+</div>
+

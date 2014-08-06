@@ -1,0 +1,78 @@
+﻿@using JDash.Mvc
+@using JDash.Models
+@model SoftwareGroup.Mirrors.WebUI.Models.Report.DashboardModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Create Infograph</h3>
+    </div>
+    <div class="panel-body row">
+        <form class="navbar-form navbar-left" action="@Url.Content("~/Report/Create")" method="post" role="search">
+            
+            <div class="input-group col-lg-6">
+                <span class="input-group field-label">Title</span>                
+                @Html.TextBoxFor(m => m.Title, new { Class = "form-control", placeholder = "Enter a title" })                
+                @Html.ValidationMessageFor(m => m.Title, null, new { Class = "alert-danger" })
+            </div>
+            
+            <br />
+            <div class="input-group col-lg-6">
+                <span class="input-group field-label">Description</span>                
+                @Html.TextAreaFor(m => m.Description, new { Class = "form-control", placeholder = "Enter description", rows=3 })
+                @Html.ValidationMessageFor(m => m.Description, null, new { Class = "alert-danger" })
+            </div>
+            <br />
+            <div class="input-group col-lg-6">
+                <span class="input-group field-label">Group</span>
+                @Html.TextBoxFor(m => m.Group, new { Class = "form-control", placeholder = "Select a group" })
+                @Html.ValidationMessageFor(m => m.Group, null, new { Class = "alert-danger" })
+            </div>
+            <br />
+
+            @Html.HiddenFor(m => m.LayoutId)
+            <div class="input-group col-lg-6">
+                <span class="input-group field-label">Select a Layout</span>
+                <div class="form-control" style="height: auto;">
+                    @foreach (KeyValuePair<string, LayoutModel> item in LayoutModel.PredefinedLayouts)
+                    {
+                        <div id="predefinedLayout" class="d-layout-predefined d-layout-predefined@(item.Key)" data-layoutid="@(item.Key)"></div>
+                    }                    
+                </div>
+            </div>            
+            <br />
+
+            <div class="input-group col-lg-6">
+                <span class="input-group field-label">Shared</span>
+                @Html.CheckBoxFor(m => m.IsShared, new { Class = "switch",  data_label_on="YES", data_label_off="NO" })
+            </div>
+            <br />
+            <br />
+            <div class="input-group col-lg-6">
+                <button type="submit" class="btn btn-primary pull-right">Next</button>
+            </div>
+        </form>              
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var layoutLastSelected = null;
+
+        $(document).ready(function () {
+            $("input[type='checkbox']").bootstrapSwitch();           
+            
+            $(".d-layout-predefined").click(function (e) {
+                $('#LayoutId').val(e.currentTarget.attributes["data-layoutid"].value);            
+                e.currentTarget.className += ' selected';
+                if (layoutLastSelected != null)
+                    layoutLastSelected.className = layoutLastSelected.className.substr(0, layoutLastSelected.className.length - 9);
+                layoutLastSelected = e.currentTarget;
+            });
+
+            layoutLastSelected = $(".d-layout-predefined" + $('#LayoutId').val())[0];
+            layoutLastSelected.className += ' selected';
+        });
+    </script>
+}
+
+

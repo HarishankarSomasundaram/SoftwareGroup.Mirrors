@@ -1,0 +1,28 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Areas.Widgets.Models.PivotViewModel
+
+@Html.DevExpress().CallbackPanel(
+    settings =>
+    {
+        settings.Name = "cbpExample";
+        settings.CallbackRouteValues = new { Area = "Widgets", Controller = "PivotView", Action = "ContentPartial" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);        
+        settings.SetContent(() =>
+        {
+            if ((bool)@ViewBag.DesignMode)
+            {
+                @Html.RenderPartial("Design", Model);                                      
+            }
+            else
+            {
+                ViewContext.Writer.Write("<div class=\"row\">");
+                ViewContext.Writer.Write("<div class=\"col col-10\">");
+                @Html.RenderPartial("PivotPartial", Model);
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("</div>");
+            }
+        });
+
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+        settings.ClientSideEvents.EndCallback = "OnEndCallback";
+    }
+).GetHtml()

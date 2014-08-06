@@ -1,0 +1,8 @@
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\bin\Debug\SoftwareGroup.Mirrors.Common.dll
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\bin\Debug\SoftwareGroup.Mirrors.Common.pdb
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\obj\Debug\SoftwareGroup.Mirrors.Common.dll
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\obj\Debug\SoftwareGroup.Mirrors.Common.pdb
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\bin\Debug\SoftwareGroup.Mirrors.Common.dll
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\bin\Debug\SoftwareGroup.Mirrors.Common.pdb
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\obj\Debug\SoftwareGroup.Mirrors.Common.dll
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.Common\obj\Debug\SoftwareGroup.Mirrors.Common.pdb

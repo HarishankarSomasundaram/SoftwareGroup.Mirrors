@@ -1,0 +1,134 @@
+﻿@using JDash.Models
+@model SoftwareGroup.Mirrors.WebUI.Models.Report.DashboardModel
+@{
+    ViewBag.Title = "CreateLayout";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Design - @Model.Title <a class="btn btn-primary btn-xs pull-right" id="btnFinish" href="@Url.Content("~/Report/Index")">  Save Infograph  </a></h3>
+    </div>
+    <div class="panel-body row">
+            <div id="dashletModules" class="d-module-container">
+                <a class="navbar-arrow left prev"><i class="glyphicon glyphicon-circle-arrow-left"></i></a>
+                <a class="navbar-arrow right next"><i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                <div class="frame">
+                    <ul class="dndArea slidee gridContainerZone" accept="modules">
+                        @foreach (var module in ViewBag.DashletModules)
+                        {
+                            var iconClass = module.config.ContainsKey("iconClass") ?
+                               module.config["iconClass"] :
+                               "glyphicon-move";
+
+                            <li class="d-module-item dragHandle" data-jdash-moduleid="@module.id" id="@Html.Raw("jdash" + module.id)" dndtype="modules" tabindex="0" style="">
+                                <span class="glyphicon @iconClass"></span>
+                                <h5>@module.title</h5>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="scrollbar">
+                    <div class="handle">
+                        <div class="mousearea"></div>
+                    </div>
+                </div>
+                <ul class="pages"></ul>
+            </div>
+
+            @{
+                var dashboardView = Html.JDash().DashboardView()
+                       .ID("myDashboard")
+                       .DesignMode(DashboardDesignMode.full);
+
+                if (ViewBag.CurrentDashboard != null)
+                {
+                    @(dashboardView.Load(ViewBag.CurrentDashboard).Render());
+                }
+                else
+                {
+                    @(dashboardView.Render());
+                }
+            }        
+        </div>
+</div>
+@section scripts {
+
+    <script type="text/javascript">
+        var isCreatePage = true;
+        var dashletAddedToDashboard = [];
+
+        $(document).ready(function () {
+
+            function doSly() {
+                var list = $(".d-module-container");
+                var sly = window.sly = new Sly(list.find(".frame"), {
+                    horizontal: 1,
+                    itemNav: 'basic',
+                    activateMiddle: 1,
+                    smart: 1,
+                    releaseSwing: 1,
+                    startAt: 0,
+                    scrollBar: list.find('.scrollbar'),
+                    scrollBy: 1,
+                    pagesBar: list.find('.pages'),
+                    activatePageOn: 'click',
+                    speed: 300,
+                    moveBy: 600,
+                    elasticBounds: 1,
+                    dragHandle: 1,
+                    dynamicHandle: 1,
+                    clickBar: 1,
+                    prevPage: list.find('.prev'),
+                    nextPage: list.find('.next')
+                });
+                sly.init();
+            }
+
+            function getGroupItems(domObject) {
+                moduleItems.remove();
+                for (var i = 0; i < moduleItems.length; i++) {
+                    var groupName = $(window.dashletModule[i]).find('.group').text();
+                    var groupText = domObject ? domObject.text() : "";
+                    if (groupName == groupText || groupText == "All") {
+                        moduleParent.append(window.dashletModule[i]);
+                    }
+                }
+                if (domObject) {
+                    domObject.parent().siblings().removeClass('active');
+                    domObject.parent().addClass('active');
+                }
+                doSly();
+            }           
+            
+
+            doSly();
+        });
+
+        $(function () {
+            window.runApp = function () {
+                moduleItems = $('.d-module-item');
+                moduleParent = $('.slidee');
+                window.dashletModule = moduleItems;
+                dashboardView = jdash.ui.registry.byId("myDashboard");
+
+                $(window).resize(function (e) {
+                    window.sly.reload();
+                });
+
+                dashboardView.subscribe("jdash/dashboard/loading/completed", function (event) {
+
+                });
+            };
+        });
+    </script>
+
+    @(Html.JDash().ResourceManager()
+            .Theme("flat")
+            .Style("w")
+            .CookieForTheme(true)
+            .ClientInitHandler("window.runApp && window.runApp();")
+            .Render())
+}
+

@@ -1,0 +1,31 @@
+﻿@model SoftwareGroup.Mirrors.DataEntity.Analysis.Widget
+
+@{
+    string divId = "div" + @Model.UID;
+    string controller = new SoftwareGroup.Mirrors.Service.Analysis.WidgetTypeService().Get(Model.WidgetTypeID).WidgetTypeName;
+}
+
+<div id="@(divId)">
+    @Html.DevExpress().DockPanel(
+                dp =>
+                {                                        
+                    dp.Name = @Model.WidgetID.ToString();
+                    dp.HeaderText = "Panel - " + @Model.WidgetID;
+                    dp.PanelUID = @Model.UID;
+                    dp.OwnerZoneUID = @Model.LayoutData.OwnerZoneUID;
+                    dp.VisibleIndex = @Model.LayoutData.VisibleIndex;
+                    dp.ShowMaximizeButton = true;
+                    dp.ShowPinButton = true;
+                    dp.ShowRefreshButton = true;
+                    dp.ShowShadow = true;
+                    dp.ShowSizeGrip = ShowSizeGrip.True;
+                    dp.MinHeight = 400;                                                           
+                    dp.SetContent(() =>
+                    {
+                        //ViewContext.Writer.Write((string)ViewBag.widgetTypeName);
+                        Html.RenderAction("Index",controller , new { Area = "Widgets", WidgetID = @Model.WidgetID });
+                        
+                    });                    
+                }).GetHtml()
+
+</div>

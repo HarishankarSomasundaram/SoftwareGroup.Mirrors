@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MirrorsModelStoreContainer" CdmEntityContainer="MirrorsEntities">
+    <EntitySetMapping Name="Analyses">
+      <EntityTypeMapping TypeName="MirrorsModel.Analysis">
+        <MappingFragment StoreEntitySet="Analysis">
+          <ScalarProperty Name="AnalysisLayoutData" ColumnName="AnalysisLayoutData" />
+          <ScalarProperty Name="AnalysisDescription" ColumnName="AnalysisDescription" />
+          <ScalarProperty Name="AnalysisName" ColumnName="AnalysisName" />
+          <ScalarProperty Name="AnalysisGroupID" ColumnName="AnalysisGroupID" />
+          <ScalarProperty Name="AnalysisID" ColumnName="AnalysisID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnalysisGroups">
+      <EntityTypeMapping TypeName="MirrorsModel.AnalysisGroup">
+        <MappingFragment StoreEntitySet="AnalysisGroup">
+          <ScalarProperty Name="AnalysisGroupName" ColumnName="AnalysisGroupName" />
+          <ScalarProperty Name="AnalysisGroupID" ColumnName="AnalysisGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataConnections">
+      <EntityTypeMapping TypeName="MirrorsModel.DataConnection">
+        <MappingFragment StoreEntitySet="DataConnection">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CatalogName" ColumnName="CatalogName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AuthenticationType" ColumnName="AuthenticationType" />
+          <ScalarProperty Name="HostName" ColumnName="HostName" />
+          <ScalarProperty Name="ConnectionTypeID" ColumnName="ConnectionTypeID" />
+          <ScalarProperty Name="ConnectionName" ColumnName="ConnectionName" />
+          <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataConnectionTypes">
+      <EntityTypeMapping TypeName="MirrorsModel.DataConnectionType">
+        <MappingFragment StoreEntitySet="DataConnectionType">
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="ConnectionTypeName" ColumnName="ConnectionTypeName" />
+          <ScalarProperty Name="ConnectionTypeID" ColumnName="ConnectionTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSources">
+      <EntityTypeMapping TypeName="MirrorsModel.DataSource">
+        <MappingFragment StoreEntitySet="DataSource">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="SourceTypeID" ColumnName="SourceTypeID" />
+          <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSourceElements">
+      <EntityTypeMapping TypeName="MirrorsModel.DataSourceElement">
+        <MappingFragment StoreEntitySet="DataSourceElement">
+          <ScalarProperty Name="ElementType" ColumnName="ElementType" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="ElementDataType" ColumnName="ElementDataType" />
+          <ScalarProperty Name="ElementName" ColumnName="ElementName" />
+          <ScalarProperty Name="ElementID" ColumnName="ElementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSourceParameters">
+      <EntityTypeMapping TypeName="MirrorsModel.DataSourceParameter">
+        <MappingFragment StoreEntitySet="DataSourceParameter">
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="ParameterType" ColumnName="ParameterType" />
+          <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+          <ScalarProperty Name="ParameterID" ColumnName="ParameterID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataSourceTypes">
+      <EntityTypeMapping TypeName="MirrorsModel.DataSourceType">
+        <MappingFragment StoreEntitySet="DataSourceType">
+          <ScalarProperty Name="SourceTypeName" ColumnName="SourceTypeName" />
+          <ScalarProperty Name="SourceTypeID" ColumnName="SourceTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfiles">
+      <EntityTypeMapping TypeName="MirrorsModel.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="PersonalPhone" ColumnName="PersonalPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UpdatedUserId" ColumnName="UpdatedUserId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="MirrorsModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoleMaps">
+      <EntityTypeMapping TypeName="MirrorsModel.UserRoleMap">
+        <MappingFragment StoreEntitySet="UserRoleMap">
+          <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Widgets">
+      <EntityTypeMapping TypeName="MirrorsModel.Widget">
+        <MappingFragment StoreEntitySet="Widget">
+          <ScalarProperty Name="WidgetLayoutData" ColumnName="WidgetLayoutData" />
+          <ScalarProperty Name="WidgetTypeID" ColumnName="WidgetTypeID" />
+          <ScalarProperty Name="WidgetUID" ColumnName="WidgetUID" />
+          <ScalarProperty Name="WidgetData" ColumnName="WidgetData" />
+          <ScalarProperty Name="AnalysisID" ColumnName="AnalysisID" />
+          <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WidgetTypes">
+      <EntityTypeMapping TypeName="MirrorsModel.WidgetType">
+        <MappingFragment StoreEntitySet="WidgetType">
+          <ScalarProperty Name="WidgetTypeData" ColumnName="WidgetTypeData" />
+          <ScalarProperty Name="WidgetTypeName" ColumnName="WidgetTypeName" />
+          <ScalarProperty Name="WidgetTypeID" ColumnName="WidgetTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

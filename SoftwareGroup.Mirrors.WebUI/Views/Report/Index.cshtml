@@ -1,0 +1,13 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Explore Infographs</h3>
+    </div>
+    <div class="panel-body row">
+        <div class="btn-group-vertical col-lg-3">
+            @foreach (var dashboard in ViewBag.Dashboards)
+            {
+                <a href="@Url.Content("~/Report/View/" + dashboard.id)" class="btn btn-default text-left">@Html.Raw(dashboard.metaData.group + " > " + dashboard.title)</a>
+            }            
+        </div>
+    </div>
+</div>

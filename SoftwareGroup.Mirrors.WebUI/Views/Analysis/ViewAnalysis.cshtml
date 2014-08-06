@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "ShowAnalysis";
+}
+
+<style>
+
+   .dockZone:hover {
+        border:1px dotted Grey;
+    }
+    .dockZone {
+        height:200px;
+    }
+    .hiddenDockZone {
+        display:none;
+    }
+
+        .widgetPanel {
+            background: #F9F9FA;
+            border: solid 1px #D3D6DA;
+            padding: 12px 15px 9px;
+            margin: 0 0 5px 0;
+            height: 54px;
+            -moz-box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.117188);
+            -webkit-box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.117188);
+            box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.117188);
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .widgetPanel img {
+            margin-right: 1px;
+        }
+
+        .widgetPanel .disabled {
+            -moz-opacity: 0.2;
+            filter: alpha(opacity=20);
+            opacity: 0.2;
+            cursor: default !important;
+        }   
+</style>
+
+<script type="text/javascript">
+    function AddWidget(widgetTypeID, widgetTypeName) {
+        var dataPost = {analysisID: $('#AnalysisID').val(), widgetTypeID: widgetTypeID};
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddWidget")",
+            data: dataPost,
+            success: function (data) {
+                $(data).appendTo('#panelContainer');
+            }
+        });
+   }
+
+    function DeleteWidget(widgetUID, widgetID) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteWidget")",
+            data: {widgetUID : widgetUID},
+            success: function (data) {
+                var dockManager = window["dockManager"]
+                var panel = dockManager.GetPanelByUID(widgetUID);
+                panel.MakeFloat();
+                var divToRemove = '#div' + widgetUID;
+                $(divToRemove).remove();
+            }
+        });       
+    }
+
+    function SaveWidgetLayout(dockPanel)
+    {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveWidgetLayout")",
+            data: { widgetUID: dockPanel.panelUID, visibleIndex: dockPanel.GetVisibleIndex(), ownerZoneUID: dockPanel.GetOwnerZone().zoneUID },
+    });      
+    }
+
+</script>
+
+
+
+
+<div id="panelContainer">
+    @if(ViewBag.Widgets!= null)
+    { 
+        foreach (var widget in ViewBag.Widgets)
+        {
+            Html.RenderPartial("WidgetPartial", (SoftwareGroup.Mirrors.DataEntity.Analysis.Widget)widget);
+        }
+    }
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            @{
+                Html.RenderPartial("AnalysisWidgetsPartial", (object)((List<SoftwareGroup.Mirrors.DataEntity.Analysis.WidgetType>)ViewBag.WidgetTypes));
+            }
+        </div>
+    </div>
+            <div class="row">
+                <div class="@(ViewBag.DockZone1CSS)">
+                    @Html.DevExpress().DockZone(
+            settings =>
+            {
+                settings.Name = "DockZone1";
+                settings.ZoneUID = "DockZone1";
+                settings.ControlStyle.CssClass = "dockZone";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+            ).GetHtml()
+                </div>
+                <div class="@(ViewBag.DockZone2CSS)">
+                    @Html.DevExpress().DockZone(
+            settings =>
+            {
+                settings.Name = "DockZone2";
+                settings.ZoneUID = "DockZone2";
+                settings.ControlStyle.CssClass = "dockZone";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+        ).GetHtml()
+                </div>
+
+
+
+                <div class="@(ViewBag.DockZone3CSS)">
+                    @Html.DevExpress().DockZone(
+            settings =>
+            {
+                settings.Name = "DockZone3";
+                settings.ZoneUID = "DockZone3";
+                settings.ControlStyle.CssClass = "dockZone";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+        ).GetHtml()
+                </div>
+
+                @*@Html.DevExpress().DockZone(
+                        settings =>
+                        {
+                            settings.Name = "DockZone4";
+                            settings.ZoneUID = "leftZone";
+                            settings.ControlStyle.CssClass = "dockPanel";
+                        }
+                    ).GetHtml()*@
+            </div>
+
+
+
+        </div>
+
+        <div>
+            @{
+                Html.RenderPartial("DockManagerPartial");
+            }
+        </div>
+
+
+
+        <div>
+            <input type="hidden" id="AnalysisID" name="AnalysisID" value="@(ViewBag.AnalysisID)" />
+        </div>

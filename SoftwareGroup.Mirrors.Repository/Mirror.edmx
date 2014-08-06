@@ -1,0 +1,751 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MirrorsEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Analysis">
+          <Key>
+            <PropertyRef Name="AnalysisID" />
+          </Key>
+          <Property Name="AnalysisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnalysisGroupID" Type="int" Nullable="false" />
+          <Property Name="AnalysisName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnalysisDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnalysisLayoutData" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnalysisGroup">
+          <Key>
+            <PropertyRef Name="AnalysisGroupID" />
+          </Key>
+          <Property Name="AnalysisGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnalysisGroupName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataConnection">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConnectionName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ConnectionTypeID" Type="int" Nullable="false" />
+          <Property Name="HostName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuthenticationType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="CatalogName" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataConnectionType">
+          <Key>
+            <PropertyRef Name="ConnectionTypeID" />
+          </Key>
+          <Property Name="ConnectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConnectionTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSource">
+          <Key>
+            <PropertyRef Name="SourceID" />
+          </Key>
+          <Property Name="SourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ConnectionID" Type="int" Nullable="false" />
+          <Property Name="SourceTypeID" Type="int" Nullable="false" />
+          <Property Name="ObjectName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DataSourceElement">
+          <Key>
+            <PropertyRef Name="ElementID" />
+          </Key>
+          <Property Name="ElementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElementName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ElementDataType" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="SourceID" Type="int" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="ElementType" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSourceParameter">
+          <Key>
+            <PropertyRef Name="ParameterID" />
+          </Key>
+          <Property Name="ParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParameterName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ParameterType" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="SourceID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSourceType">
+          <Key>
+            <PropertyRef Name="SourceTypeID" />
+          </Key>
+          <Property Name="SourceTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceTypeName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PasswordSalt" Type="varchar" MaxLength="50" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedUserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedUserId" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PersonalPhone" Type="varchar" MaxLength="25" />
+          <Property Name="WorkPhone" Type="varchar" MaxLength="25" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UserRoleMap">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Widget">
+          <Key>
+            <PropertyRef Name="WidgetID" />
+          </Key>
+          <Property Name="WidgetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnalysisID" Type="int" Nullable="false" />
+          <Property Name="WidgetData" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WidgetUID" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="WidgetTypeID" Type="int" Nullable="false" />
+          <Property Name="WidgetLayoutData" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="WidgetType">
+          <Key>
+            <PropertyRef Name="WidgetTypeID" />
+          </Key>
+          <Property Name="WidgetTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WidgetTypeName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WidgetTypeData" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnalysisAnalysisGroup">
+          <End Role="AnalysisGroup" Type="Self.AnalysisGroup" Multiplicity="1" />
+          <End Role="Analysis" Type="Self.Analysis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalysisGroup">
+              <PropertyRef Name="AnalysisGroupID" />
+            </Principal>
+            <Dependent Role="Analysis">
+              <PropertyRef Name="AnalysisGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataConnection_DataConnectionType">
+          <End Role="DataConnectionType" Type="Self.DataConnectionType" Multiplicity="1" />
+          <End Role="DataConnection" Type="Self.DataConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataConnectionType">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Principal>
+            <Dependent Role="DataConnection">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSource_DataConnection">
+          <End Role="DataConnection" Type="Self.DataConnection" Multiplicity="1" />
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataConnection">
+              <PropertyRef Name="ConnectionID" />
+            </Principal>
+            <Dependent Role="DataSource">
+              <PropertyRef Name="ConnectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSource_DataSourceType">
+          <End Role="DataSourceType" Type="Self.DataSourceType" Multiplicity="1" />
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSourceType">
+              <PropertyRef Name="SourceTypeID" />
+            </Principal>
+            <Dependent Role="DataSource">
+              <PropertyRef Name="SourceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_DataSource">
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSource">
+              <PropertyRef Name="SourceID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParameterID_DataSource">
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="1" />
+          <End Role="DataSourceParameter" Type="Self.DataSourceParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSource">
+              <PropertyRef Name="SourceID" />
+            </Principal>
+            <Dependent Role="DataSourceParameter">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WidgetAnalysis">
+          <End Role="Analysis" Type="Self.Analysis" Multiplicity="1" />
+          <End Role="Widget" Type="Self.Widget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analysis">
+              <PropertyRef Name="AnalysisID" />
+            </Principal>
+            <Dependent Role="Widget">
+              <PropertyRef Name="AnalysisID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MirrorsEntitiesModelStoreContainer">
+          <EntitySet Name="Analysis" EntityType="Self.Analysis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnalysisGroup" EntityType="Self.AnalysisGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataConnection" EntityType="Self.DataConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataConnectionType" EntityType="Self.DataConnectionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSource" EntityType="Self.DataSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSourceElement" EntityType="Self.DataSourceElement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSourceParameter" EntityType="Self.DataSourceParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSourceType" EntityType="Self.DataSourceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleMap" EntityType="Self.UserRoleMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Widget" EntityType="Self.Widget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WidgetType" EntityType="Self.WidgetType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnalysisAnalysisGroup" Association="Self.FK_AnalysisAnalysisGroup">
+            <End Role="AnalysisGroup" EntitySet="AnalysisGroup" />
+            <End Role="Analysis" EntitySet="Analysis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataConnection_DataConnectionType" Association="Self.FK_DataConnection_DataConnectionType">
+            <End Role="DataConnectionType" EntitySet="DataConnectionType" />
+            <End Role="DataConnection" EntitySet="DataConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSource_DataConnection" Association="Self.FK_DataSource_DataConnection">
+            <End Role="DataConnection" EntitySet="DataConnection" />
+            <End Role="DataSource" EntitySet="DataSource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSource_DataSourceType" Association="Self.FK_DataSource_DataSourceType">
+            <End Role="DataSourceType" EntitySet="DataSourceType" />
+            <End Role="DataSource" EntitySet="DataSource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_DataSource" Association="Self.FK_DataSourceElement_DataSource">
+            <End Role="DataSource" EntitySet="DataSource" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParameterID_DataSource" Association="Self.FK_ParameterID_DataSource">
+            <End Role="DataSource" EntitySet="DataSource" />
+            <End Role="DataSourceParameter" EntitySet="DataSourceParameter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WidgetAnalysis" Association="Self.FK_WidgetAnalysis">
+            <End Role="Analysis" EntitySet="Analysis" />
+            <End Role="Widget" EntitySet="Widget" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MirrorsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Analysis">
+          <Key>
+            <PropertyRef Name="AnalysisID" />
+          </Key>
+          <Property Name="AnalysisID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnalysisGroupID" Type="Int32" Nullable="false" />
+          <Property Name="AnalysisName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnalysisDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnalysisLayoutData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AnalysisGroup" Relationship="Self.FK_AnalysisAnalysisGroup" FromRole="Analysis" ToRole="AnalysisGroup" />
+          <NavigationProperty Name="Widgets" Relationship="Self.FK_WidgetAnalysis" FromRole="Analysis" ToRole="Widget" />
+        </EntityType>
+        <EntityType Name="AnalysisGroup">
+          <Key>
+            <PropertyRef Name="AnalysisGroupID" />
+          </Key>
+          <Property Name="AnalysisGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnalysisGroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Analyses" Relationship="Self.FK_AnalysisAnalysisGroup" FromRole="AnalysisGroup" ToRole="Analysis" />
+        </EntityType>
+        <EntityType Name="DataConnection">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConnectionName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConnectionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="HostName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AuthenticationType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CatalogName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DataConnectionType" Relationship="Self.FK_DataConnection_DataConnectionType" FromRole="DataConnection" ToRole="DataConnectionType" />
+          <NavigationProperty Name="DataSources" Relationship="Self.FK_DataSource_DataConnection" FromRole="DataConnection" ToRole="DataSource" />
+        </EntityType>
+        <EntityType Name="DataConnectionType">
+          <Key>
+            <PropertyRef Name="ConnectionTypeID" />
+          </Key>
+          <Property Name="ConnectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConnectionTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DataConnections" Relationship="Self.FK_DataConnection_DataConnectionType" FromRole="DataConnectionType" ToRole="DataConnection" />
+        </EntityType>
+        <EntityType Name="DataSource">
+          <Key>
+            <PropertyRef Name="SourceID" />
+          </Key>
+          <Property Name="SourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConnectionID" Type="Int32" Nullable="false" />
+          <Property Name="SourceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DataConnection" Relationship="Self.FK_DataSource_DataConnection" FromRole="DataSource" ToRole="DataConnection" />
+          <NavigationProperty Name="DataSourceType" Relationship="Self.FK_DataSource_DataSourceType" FromRole="DataSource" ToRole="DataSourceType" />
+          <NavigationProperty Name="DataSourceElements" Relationship="Self.FK_DataSourceElement_DataSource" FromRole="DataSource" ToRole="DataSourceElement" />
+          <NavigationProperty Name="DataSourceParameters" Relationship="Self.FK_ParameterID_DataSource" FromRole="DataSource" ToRole="DataSourceParameter" />
+        </EntityType>
+        <EntityType Name="DataSourceElement">
+          <Key>
+            <PropertyRef Name="ElementID" />
+          </Key>
+          <Property Name="ElementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElementName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ElementDataType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SourceID" Type="Int32" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="ElementType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DataSource" Relationship="Self.FK_DataSourceElement_DataSource" FromRole="DataSourceElement" ToRole="DataSource" />
+        </EntityType>
+        <EntityType Name="DataSourceParameter">
+          <Key>
+            <PropertyRef Name="ParameterID" />
+          </Key>
+          <Property Name="ParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParameterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParameterType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SourceID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DataSource" Relationship="Self.FK_ParameterID_DataSource" FromRole="DataSourceParameter" ToRole="DataSource" />
+        </EntityType>
+        <EntityType Name="DataSourceType">
+          <Key>
+            <PropertyRef Name="SourceTypeID" />
+          </Key>
+          <Property Name="SourceTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DataSources" Relationship="Self.FK_DataSource_DataSourceType" FromRole="DataSourceType" ToRole="DataSource" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedUserId" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WorkPhone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserRoleMap">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedUserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Widget">
+          <Key>
+            <PropertyRef Name="WidgetID" />
+          </Key>
+          <Property Name="WidgetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnalysisID" Type="Int32" Nullable="false" />
+          <Property Name="WidgetData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WidgetUID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WidgetTypeID" Type="Int32" Nullable="false" />
+          <Property Name="WidgetLayoutData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Analysis" Relationship="Self.FK_WidgetAnalysis" FromRole="Widget" ToRole="Analysis" />
+        </EntityType>
+        <EntityType Name="WidgetType">
+          <Key>
+            <PropertyRef Name="WidgetTypeID" />
+          </Key>
+          <Property Name="WidgetTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WidgetTypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WidgetTypeData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnalysisAnalysisGroup">
+          <End Role="AnalysisGroup" Type="Self.AnalysisGroup" Multiplicity="1" />
+          <End Role="Analysis" Type="Self.Analysis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnalysisGroup">
+              <PropertyRef Name="AnalysisGroupID" />
+            </Principal>
+            <Dependent Role="Analysis">
+              <PropertyRef Name="AnalysisGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WidgetAnalysis">
+          <End Role="Analysis" Type="Self.Analysis" Multiplicity="1" />
+          <End Role="Widget" Type="Self.Widget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Analysis">
+              <PropertyRef Name="AnalysisID" />
+            </Principal>
+            <Dependent Role="Widget">
+              <PropertyRef Name="AnalysisID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataConnection_DataConnectionType">
+          <End Role="DataConnectionType" Type="Self.DataConnectionType" Multiplicity="1" />
+          <End Role="DataConnection" Type="Self.DataConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataConnectionType">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Principal>
+            <Dependent Role="DataConnection">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSource_DataConnection">
+          <End Role="DataConnection" Type="Self.DataConnection" Multiplicity="1" />
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataConnection">
+              <PropertyRef Name="ConnectionID" />
+            </Principal>
+            <Dependent Role="DataSource">
+              <PropertyRef Name="ConnectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSource_DataSourceType">
+          <End Role="DataSourceType" Type="Self.DataSourceType" Multiplicity="1" />
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSourceType">
+              <PropertyRef Name="SourceTypeID" />
+            </Principal>
+            <Dependent Role="DataSource">
+              <PropertyRef Name="SourceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_DataSource">
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSource">
+              <PropertyRef Name="SourceID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParameterID_DataSource">
+          <End Role="DataSource" Type="Self.DataSource" Multiplicity="1" />
+          <End Role="DataSourceParameter" Type="Self.DataSourceParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSource">
+              <PropertyRef Name="SourceID" />
+            </Principal>
+            <Dependent Role="DataSourceParameter">
+              <PropertyRef Name="SourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MirrorsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Analyses" EntityType="Self.Analysis" />
+          <EntitySet Name="AnalysisGroups" EntityType="Self.AnalysisGroup" />
+          <EntitySet Name="DataConnections" EntityType="Self.DataConnection" />
+          <EntitySet Name="DataConnectionTypes" EntityType="Self.DataConnectionType" />
+          <EntitySet Name="DataSources" EntityType="Self.DataSource" />
+          <EntitySet Name="DataSourceElements" EntityType="Self.DataSourceElement" />
+          <EntitySet Name="DataSourceParameters" EntityType="Self.DataSourceParameter" />
+          <EntitySet Name="DataSourceTypes" EntityType="Self.DataSourceType" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="UserRoleMaps" EntityType="Self.UserRoleMap" />
+          <EntitySet Name="Widgets" EntityType="Self.Widget" />
+          <EntitySet Name="WidgetTypes" EntityType="Self.WidgetType" />
+          <AssociationSet Name="FK_AnalysisAnalysisGroup" Association="Self.FK_AnalysisAnalysisGroup">
+            <End Role="AnalysisGroup" EntitySet="AnalysisGroups" />
+            <End Role="Analysis" EntitySet="Analyses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WidgetAnalysis" Association="Self.FK_WidgetAnalysis">
+            <End Role="Analysis" EntitySet="Analyses" />
+            <End Role="Widget" EntitySet="Widgets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataConnection_DataConnectionType" Association="Self.FK_DataConnection_DataConnectionType">
+            <End Role="DataConnectionType" EntitySet="DataConnectionTypes" />
+            <End Role="DataConnection" EntitySet="DataConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSource_DataConnection" Association="Self.FK_DataSource_DataConnection">
+            <End Role="DataConnection" EntitySet="DataConnections" />
+            <End Role="DataSource" EntitySet="DataSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSource_DataSourceType" Association="Self.FK_DataSource_DataSourceType">
+            <End Role="DataSourceType" EntitySet="DataSourceTypes" />
+            <End Role="DataSource" EntitySet="DataSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_DataSource" Association="Self.FK_DataSourceElement_DataSource">
+            <End Role="DataSource" EntitySet="DataSources" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParameterID_DataSource" Association="Self.FK_ParameterID_DataSource">
+            <End Role="DataSource" EntitySet="DataSources" />
+            <End Role="DataSourceParameter" EntitySet="DataSourceParameters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MirrorsEntitiesModelStoreContainer" CdmEntityContainer="MirrorsEntities">
+          <EntitySetMapping Name="Analyses">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.Analysis">
+              <MappingFragment StoreEntitySet="Analysis">
+                <ScalarProperty Name="AnalysisID" ColumnName="AnalysisID" />
+                <ScalarProperty Name="AnalysisGroupID" ColumnName="AnalysisGroupID" />
+                <ScalarProperty Name="AnalysisName" ColumnName="AnalysisName" />
+                <ScalarProperty Name="AnalysisDescription" ColumnName="AnalysisDescription" />
+                <ScalarProperty Name="AnalysisLayoutData" ColumnName="AnalysisLayoutData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnalysisGroups">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.AnalysisGroup">
+              <MappingFragment StoreEntitySet="AnalysisGroup">
+                <ScalarProperty Name="AnalysisGroupID" ColumnName="AnalysisGroupID" />
+                <ScalarProperty Name="AnalysisGroupName" ColumnName="AnalysisGroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataConnections">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataConnection">
+              <MappingFragment StoreEntitySet="DataConnection">
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+                <ScalarProperty Name="ConnectionName" ColumnName="ConnectionName" />
+                <ScalarProperty Name="ConnectionTypeID" ColumnName="ConnectionTypeID" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="AuthenticationType" ColumnName="AuthenticationType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CatalogName" ColumnName="CatalogName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataConnectionTypes">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataConnectionType">
+              <MappingFragment StoreEntitySet="DataConnectionType">
+                <ScalarProperty Name="ConnectionTypeID" ColumnName="ConnectionTypeID" />
+                <ScalarProperty Name="ConnectionTypeName" ColumnName="ConnectionTypeName" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSources">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataSource">
+              <MappingFragment StoreEntitySet="DataSource">
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+                <ScalarProperty Name="SourceTypeID" ColumnName="SourceTypeID" />
+                <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSourceElements">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataSourceElement">
+              <MappingFragment StoreEntitySet="DataSourceElement">
+                <ScalarProperty Name="ElementID" ColumnName="ElementID" />
+                <ScalarProperty Name="ElementName" ColumnName="ElementName" />
+                <ScalarProperty Name="ElementDataType" ColumnName="ElementDataType" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ElementType" ColumnName="ElementType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSourceParameters">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataSourceParameter">
+              <MappingFragment StoreEntitySet="DataSourceParameter">
+                <ScalarProperty Name="ParameterID" ColumnName="ParameterID" />
+                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+                <ScalarProperty Name="ParameterType" ColumnName="ParameterType" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSourceTypes">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.DataSourceType">
+              <MappingFragment StoreEntitySet="DataSourceType">
+                <ScalarProperty Name="SourceTypeID" ColumnName="SourceTypeID" />
+                <ScalarProperty Name="SourceTypeName" ColumnName="SourceTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedUserId" ColumnName="UpdatedUserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PersonalPhone" ColumnName="PersonalPhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleMaps">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.UserRoleMap">
+              <MappingFragment StoreEntitySet="UserRoleMap">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Widgets">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.Widget">
+              <MappingFragment StoreEntitySet="Widget">
+                <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
+                <ScalarProperty Name="AnalysisID" ColumnName="AnalysisID" />
+                <ScalarProperty Name="WidgetData" ColumnName="WidgetData" />
+                <ScalarProperty Name="WidgetUID" ColumnName="WidgetUID" />
+                <ScalarProperty Name="WidgetTypeID" ColumnName="WidgetTypeID" />
+                <ScalarProperty Name="WidgetLayoutData" ColumnName="WidgetLayoutData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WidgetTypes">
+            <EntityTypeMapping TypeName="MirrorsEntitiesModel.WidgetType">
+              <MappingFragment StoreEntitySet="WidgetType">
+                <ScalarProperty Name="WidgetTypeID" ColumnName="WidgetTypeID" />
+                <ScalarProperty Name="WidgetTypeName" ColumnName="WidgetTypeName" />
+                <ScalarProperty Name="WidgetTypeData" ColumnName="WidgetTypeData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

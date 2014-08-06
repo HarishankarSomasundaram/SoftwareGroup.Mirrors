@@ -1,0 +1,166 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">View Infograph - @ViewBag.Dashboard.title</h3>
+    </div>
+    <div class="panel-body row">
+        @{
+            var dashboardView = Html.JDash().DashboardView()
+                   .ID("myDashboard")
+                   .DesignMode(DashboardDesignMode.full);
+
+            if (ViewBag.CurrentDashboard != null)
+            {
+                @(dashboardView.Load(ViewBag.CurrentDashboard).Render());
+            }
+            else
+            {
+                @(dashboardView.Render());
+            }
+        }
+    </div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function createOrUpdateDashboard(id) {
+                app.DashboardModule.create(id, function (module) {
+
+                }, {
+                    handler: function (dashboardId) {
+                        loadDashboard(dashboardId);
+                    }
+                });
+            }
+
+            var dashboardView, moduleItems, moduleParent;
+
+            var loadDashboardFromHistory = false;
+
+            function loadDashboard(id, disableState) {
+                getGroupItems($('.allLink'));
+                return dashboardView.load(id).then(function () {
+                    if (!disableState) {
+                        loadDashboardFromHistory = false;
+                        History.pushState({ id: id }, dashboardView.model.title, "/dashboard/index/" + id);
+                    }
+                }, function (err) {
+                    alert(err.message);
+                });
+            }                        
+
+            function getGroupItems(domObject) {
+                moduleItems.remove();
+                for (var i = 0; i < moduleItems.length; i++) {
+                    var groupName = $(window.dashletModule[i]).find('.group').text();
+                    var groupText = domObject ? domObject.text() : "";
+                    if (groupName == groupText || groupText == "All") {
+                        moduleParent.append(window.dashletModule[i]);
+                    }
+                }
+                if (domObject) {
+                    domObject.parent().siblings().removeClass('active');
+                    domObject.parent().addClass('active');
+                }
+                doSly();
+            }
+
+            window.runApp = function () {              
+
+                dashboardView = jdash.ui.registry.byId("myDashboard");
+
+                function openDashboards() {
+                    app.DashboardsMenu.create(null, {
+                        id: dashboardView.isLoaded() ? dashboardView.model.id : undefined,
+                        onload: function (id) {
+                            loadDashboard(id);
+                            this.hide();
+                        }
+                    });
+                }
+
+
+                $(".createDashboard").on("click", function (e) {
+                    var isEdit = $(this).attr("id") ? true : false;
+                    var id = dashboardView.isLoaded() && isEdit ? dashboardView.model.id : undefined;
+                    createOrUpdateDashboard(id);
+                });
+
+                $(".deleteDashboard").on("click", function (e) {
+                    var id = dashboardView.model.id;
+                    app.DashboardModule.delete(id, function (module) {
+                        dashboardView.unload();
+                        openDashboards();
+                    });
+                });
+
+                $("#listDashboardsBtn,#dashboardDropdown").on("click", function () {
+                    openDashboards();
+                });
+
+                $(window).resize(function (e) {
+                    if(window.sly)
+                        window.sly.reload();
+                });
+
+                $('input[type="checkbox"],[type="radio"]').not('#create-switch').bootstrapSwitch();
+
+                $('#dashboardDesignSwitch').on('switch-change', function (e, data) {
+                    var $element = $(data.el),
+                        value = data.value;
+                    dashboardView.set("designMode", value ? jdash.designMode.full : jdash.designMode.none);
+                    value ? $("#dashletModules").show(500) : $("#dashletModules").hide(500);
+                });
+
+                $("#pageContainer").css("opacity", "1");
+
+                $('#sb-container div').click(function (item) {
+                    var id = $(this).attr("data-dashboard-id");
+                    var label = $("h4 span", this).text();
+                    $("#loadDashboardButton").text(label);
+                    $("#loadDashboardButton").attr("data-dashboard-id", id);
+
+                });
+
+                $("#loadDashboardButton").click(function () {
+                    var id = $(this).attr("data-dashboard-id");
+                    loadDashboard(id);
+                })
+
+
+                History.Adapter.bind(window, 'statechange', function () {
+                    var state = History.getState();
+                    if (state.data.id) {
+                        if (loadDashboardFromHistory)
+                            loadDashboard(state.data.id, true);
+                        loadDashboardFromHistory = true;
+                    }
+                });
+
+                var autoLoaded = false;
+
+                @{
+                    if (ViewBag.CurrentDashboard == null)
+                    {
+                        <text>autoLoaded = true; openDashboards();</text>
+                    }
+                }
+
+                dashboardView.subscribe("jdash/dashboard/loading/completed", function (event) {
+                    // handler for loading completed
+                });
+            }
+            
+        });
+    </script>
+}
+
+@(Html.JDash().ResourceManager()
+            .Theme("flat")
+            .Style("w")
+            .CookieForTheme(true)
+            .ClientInitHandler("window.runApp && window.runApp();")
+            .Render())
+

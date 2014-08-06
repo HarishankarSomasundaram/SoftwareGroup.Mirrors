@@ -1,0 +1,30 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Areas.Widgets.Models.PivotViewModel
+
+<script type="text/javascript">
+    function OnModeChanged(s) {        
+        if (!cbpExample.InCallback())
+            cbpExample.PerformCallback();
+    }
+    function OnBeginCallback(s,e) {        
+        e.customArgs["DesignMode"] = $('#Mode').is(':checked');
+    }
+    function OnEndCallback(s, e) {
+        
+    }
+</script>
+
+<div class="smart-form">
+    <div class="row">
+        <div class="col col-4 pull-right">
+            <label class="toggle pull-right">Design
+                @Html.CheckBox("Mode", (bool)@ViewBag.DesignMode, new { onClick = "OnModeChanged(this);" })
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+            </label>
+        </div>
+        </div>
+    <div class="row">
+        <div class="col col-10">
+            @Html.Partial("ContentPartial")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.DataEntity.dll
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.DataEntity.pdb
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.Common.dll
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.Common.pdb
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.csprojResolveAssemblyReference.cache
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.dll
+C:\dNoesis\MV3 Project\Code\Mirrors-V3\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.pdb
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.DataEntity.dll
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.DataEntity.pdb
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.Common.dll
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\bin\Debug\SoftwareGroup.Mirrors.Common.pdb
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.csprojResolveAssemblyReference.cache
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.dll
+E:\Mirrors Online\trunk\SoftwareGroup.Mirrors.Web\SoftwareGroup.Mirrors.DataEntity\obj\Debug\SoftwareGroup.Mirrors.DataEntity.pdb

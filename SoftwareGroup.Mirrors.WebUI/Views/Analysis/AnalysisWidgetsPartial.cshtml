@@ -1,0 +1,14 @@
+﻿@model List<SoftwareGroup.Mirrors.DataEntity.Analysis.WidgetType>
+<div class="widgetPanel">
+    @foreach (SoftwareGroup.Mirrors.DataEntity.Analysis.WidgetType widgetType in Model)
+    {
+        @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "widgetButton_" + widgetType.WidgetTypeName;
+                settings.Text = widgetType.WidgetTypeName;
+                settings.ClientSideEvents.Click = string.Format("function(s, e) {{ AddWidget('{0}') }}", widgetType.WidgetTypeID);
+            }
+        ).GetHtml()
+    }
+</div>

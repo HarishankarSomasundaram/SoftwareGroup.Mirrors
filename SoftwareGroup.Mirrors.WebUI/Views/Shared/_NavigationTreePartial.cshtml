@@ -1,0 +1,43 @@
+﻿<nav>
+    <ul>
+        <li class="@Html.Raw(ViewBag.Title == "Home" && ViewBag.SubTitle == "Dashboard" ? "active" : "")">
+            <a href="@Url.Content("~/Home/Dashboard")" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+        </li>
+        <li class="@Html.Raw(ViewBag.Title == "Analysis" ? "open" : "")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Analysis</span></a>
+            <ul>
+                @*<li class="@Html.Raw(ViewBag.Title == "Info Graphs" && ViewBag.SubTitle == "Explore" ? "active" : "")">
+                    <a href="@Url.Content("~/Report/Index")">Explore Info Graphs</a>
+                </li>
+                <li class="@Html.Raw(ViewBag.Title == "Info Graphs" && ViewBag.SubTitle == "MyReports" ? "active" : "")">
+                    <a href="@Url.Content("~/Report/MyReports")">My Info Graphs</a>
+                </li>*@
+                <li class="@Html.Raw(ViewBag.Title == "Analysis" && ViewBag.SubTitle == "Create" ? "active" : "")">
+                    <a href="@Url.Content("~/Analysis/NewAnalysis")">New Analysis</a>
+                </li>
+            </ul>
+        </li>
+        <li class="@Html.Raw(ViewBag.Title == "Communicator" ? "active" : "")">
+            <a href="@Url.Content("~/Chat/Index")"><i class="fa fa-lg fa-fw fa-comment"></i> <span class="menu-item-parent">Communicator</span></a>
+        </li>
+        <li class="@Html.Raw(ViewBag.Title == "Administration" ? "open" : "")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">Administration</span></a>
+            <ul>
+                <li class="@Html.Raw(ViewBag.Title == "Administration" && ViewBag.SubTitle == "Users" ? "active" : "")">
+                    <a href="@Url.Content("~/Admin/Users")">Users</a>
+                    
+                </li>
+                <li class="@Html.Raw(ViewBag.Title == "Administration" && ViewBag.SubTitle == "Permissions" ? "active" : "")">
+                    <a href="@Url.Content("~/Admin/Permissions")">User Previlages</a>
+                </li>
+                <li class="@Html.Raw(ViewBag.Title == "Administration" && ViewBag.SubTitle == "Datasource Manager" ? "active" : "")">
+                    <a href="@Url.Content("~/DataSource/Index")">Datasource Manager</a>
+                </li>
+            </ul>
+        </li>
+        <li class="@Html.Raw(ViewBag.Title == "My Account" ? "active" : "")">
+            <a href="@Url.Content("~/Account/Index")"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">My Account</span></a>
+        </li>        
+    </ul>
+</nav>
+OK

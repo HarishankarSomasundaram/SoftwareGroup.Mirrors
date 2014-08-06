@@ -1,0 +1,247 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.ConnectionDetailViewModel
+
+<div class="panel panel-default" id="sqlConnectionDetails">
+    <div class="panel-heading">
+        <h3 class="panel-title">Select DataSource Type</h3>
+    </div>
+    <div class="panel-body row">
+        <form class="navbar-form navbar-left" action="@Url.Content("~/DataSource/ConnectionDetail")" method="post" role="search" id="ConnectionDetail">
+            @for (int i = 0; i < Model.NewOrExistingConnections.Count; i++)
+            {
+                @Html.HiddenFor(m => m.NewOrExistingConnections[i].Text);
+                @Html.HiddenFor(m => m.NewOrExistingConnections[i].Value);
+            }
+            @for (int i = 0; i < Model.Databases.Count; i++)
+            {
+                @Html.HiddenFor(m => m.Databases[i].Text);
+                @Html.HiddenFor(m => m.Databases[i].Value);
+            }
+            
+            @Html.ValidationSummary(true)
+            <p>Select New or an existing connection from the drop down</p>
+            @Html.DropDownListFor(m=>m.NewOrExistingConnection,Model.NewOrExistingConnections)
+            <div style="margin-top:10px;margin-bottom:10px;">
+                @Html.LabelFor(m => m.ServerName)<br />
+                @Html.TextBoxFor(m => m.ServerName)
+                @Html.ValidationMessageFor(m=>m.ServerName)
+            </div>
+
+            <div style="margin-top:10px;margin-bottom:10px;">
+                <div>
+                    @Html.RadioButtonFor(m => m.AuthenticationType, "W") Use Windows Authentication
+                    <br />
+                    @Html.RadioButtonFor(m => m.AuthenticationType, "S") Use the Following user name and password
+                </div>
+                <div id="credentials">
+                    <div>
+                        @Html.LabelFor(m => m.UserName)<br />
+                        @Html.TextBoxFor(m => m.UserName)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Password)<br />
+                        @Html.TextBoxFor(m => m.Password)
+                    </div>
+                </div>
+                <div style="margin-top:10px;margin-bottom:10px;">
+
+                    @Html.LabelFor(m => m.Databases)<span id="refresh">(Click here To refresh)</span><br />
+                    @Html.DropDownListFor(m => m.InitialCatalog, Model.Databases)
+
+                  
+                </div>
+
+                <div style="margin-top:10px;margin-bottom:10px;">
+                    @Html.LabelFor(m => m.ConnectionName)<br />
+                    @Html.TextBoxFor(m=>m.ConnectionName)
+                    @Html.ValidationMessageFor(m => m.ConnectionName)
+                </div>
+                @Html.HiddenFor(m => m.ConnectionTypeID)
+                @Html.HiddenFor(m=>m.ServerName)
+                @Html.HiddenFor(m=>m.ConnectionName)
+                @Html.HiddenFor(m => m.ConnectionTypeName)
+                @Html.HiddenFor(m => m.ProviderName)
+                <div class="input-group">
+                    <button type="submit" id="next" class="btn btn-primary pull-right">Next</button>
+                </div>
+            </div>
+            </form>
+    </div>
+
+ </div>
+
+<script type="text/javascript">
+    $(document).ready(
+      function () {
+          //Select Windows Authentication by default
+          var selectedVal = $('input[name=AuthenticationType]:checked').val();
+          if (selectedVal == null)
+          {
+              $('#UserName').attr("disabled", true);
+              $('#Password').attr("disabled", true);
+              $('input[name=AuthenticationType]').filter('input[value=W]').attr("checked", true);
+          }
+          //When Windows Authentication is checked disable user id and password fields. This is required when the view is redisplayed incase 
+          //model errors
+          if (selectedVal == "W") {
+              $('#UserName').attr("disabled", true);
+              $('#Password').attr("disabled", true);
+          }
+
+          //When User clicks authentication radio button enable or disable UserName and Password depending on the authentication mode checked
+    $("input[name=AuthenticationType]").click(function () {
+        var selectedVal = $('input[name=AuthenticationType]:checked').val();
+        if (selectedVal == 'W')
+        {
+            $('#UserName').attr("disabled",true);
+            $('#Password').attr("disabled", true);
+        }
+
+        if (selectedVal == 'S') {
+            $('#UserName').attr("disabled", false);
+            $('#Password').attr("disabled", false);
+        }
+    });
+
+          //When User selects NewConnection from the drop down , 
+          //  1. Allow Users to refresh the database list
+          //  2. Allow users to edit connection name and server details
+          //  3. Enable Authentication mode button
+          //  4. Check Windows Authentication by default
+          //  5. Blank out the database dropdown(User will refresh it once he enters the connection details)
+          // When user selects an existing connectino call the function getConnectionDetail
+    $('#NewOrExistingConnection').change(function () {
+        var selectedVal = $('#NewOrExistingConnection').val();
+        if (selectedVal == "New Connection") {
+            $('#refresh').show();
+            $('#ConnectionName').attr("readonly", false);
+            $('#ConnectionName').add('#ServerName').val(" ");
+            $('#ServerName').attr("readonly", false);
+            $('input[name=AuthenticationType]').attr("disabled", false);
+            $('#InitialCatalog').empty();
+            var selectedVal = $('input[name=AuthenticationType]:checked').val();
+            if (selectedVal == null) {
+               
+                $('#UserName').attr("disabled", true);
+                $('#Password').attr("disabled", true);
+                $('input[name=AuthenticationType]').filter('input[value=W]').attr("checked", true);
+            }
+        }
+
+        else {
+            getConnectionDetail();
+
+        }
+
+    });
+          //When user selects an existing connection
+          // 1. A call to the action method GetConnectionDetail is made
+          // 2. When the call is successful parse the data and retrieve the server name and connection name.populate
+          //these details to the respective textboxes
+          //3. Make server name and connection name text boxes read only
+          //4. If the authentication mode retrieved from the server is W, then disable User & password fields. Check the windows authentication radio button
+          //5. If it is 'S', allow users to enter credentials so that it can be validated to see if it matches the details of the existing connection
+          //6.Otherwise disable authentication mode and credential fields(This may require change once the authentication types for OLAP is decided)
+          //7. Populate the databases drop down with just one database which associated to the existing connection
+          //8. Make sure you define a hidden input field for Databases array, so that Model binder binds it . This will be useful
+          //when the view is rethrown in case of Model errors.
+          //9. Hide the refresh element. user should not be allowed to refresh the database list.He should use the one associated to the
+          //existing connection
+    function getConnectionDetail() {
+        var selectedVal = $('#NewOrExistingConnection').val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetConnectionDetail", "DataSource")',
+            data: $('#NewOrExistingConnection').serialize(),
+            success:function(data)
+            {
+                $('#ServerName').val(data.HostName);
+                $('#ServerName').attr("readonly", true);
+                $('#ConnectionName').val(data.ConnectionName);
+                $('#ConnectionName').attr("readonly", true);
+
+                if (data.AuthenticationType == 'W') {
+                    alert(data.AuthenticationType);
+                    $('input[name=AuthenticationType]').filter('input[value=W]').attr("checked", true);
+                    $('#UserName').attr("disabled", true);
+                    $('#Password').attr("disabled", true);
+                    $('input[name=AuthenticationType]').attr("disabled", false);
+                }
+
+                else
+
+                if (data.AuthenticationType == 'S') {
+                    $('input[name=AuthenticationType]').filter('input[value=S]').attr("checked", true);
+                    $('#UserName').attr("disabled", false);
+                    $('#Password').attr("disabled", false);
+                    $('input[name=AuthenticationType]').attr("disabled", false);
+                }
+                else
+                {
+                    $('#UserName').attr("disabled", true);
+                    $('#Password').attr("disabled", true);
+                    $('input[name=AuthenticationType]').attr("disabled", true);
+                }
+                
+                $('#InitialCatalog').empty();
+                $('[name*="Databases"]').remove();
+                var div_data = "<option value='" + data.CatalogName + "'" + ">" + data.CatalogName + "</option>";
+                $(div_data).appendTo('#InitialCatalog');
+                var newElement = $('<input></input>');
+                var newElement2 = $('<input></input>');
+                $(newElement).add(newElement2).appendTo('#ConnectionDetail');
+                $(newElement).attr("name", "Databases[0].Value");;
+                $(newElement).add(newElement2).attr("value", data.CatalogName);
+                $(newElement).add(newElement2).attr("type", "hidden");
+                $(newElement2).attr("name", "Databases[0].Text")
+                $('#refresh').hide();
+
+                },
+            error: function (data) {
+
+                alert("in error");
+            }
+        });
+    }
+          //When Refresh element is clicked a call is made to the server to retrieve the database list 
+          //using the server details entered by the user
+
+
+          $('#refresh').click(function () {
+              if ($('#NewOrExistingConnection').val() == "New Connection")
+  
+                     getDatabases();
+          })
+
+          //When the call is successful
+          //Add the databases retrieved to the databases drop down
+          //create hidden elements for Databases array so that Model.Databases is bound when the form is posted
+    function getDatabases()
+    {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetDatabases", "DataSource")',
+            data: $("#ConnectionDetail").serialize(),
+            success: function (data) {
+                $('#InitialCatalog').empty();
+                $('[name*="Databases"]').remove();
+                $.each(data, function (i, object) {
+                    var div_data = "<option value='" + object.Value + "'" + ">" + object.Text + "</option>";
+                    $(div_data).appendTo('#InitialCatalog');
+                    var newElement = $('<input></input>');
+                    var newElement2 = $('<input></input>');
+                    $(newElement).add(newElement2).appendTo('#ConnectionDetail');
+                    $(newElement).attr("name", ("Databases["+i+"].Value"));
+                    $(newElement).attr("value", object.Value);
+                    $(newElement).add(newElement2).attr("type", "hidden");
+                    $(newElement2).attr("name", ("Databases[" + i + "].Text"))
+                    $(newElement2).attr("value", object.Text);
+
+                });
+            },
+            error: function (data) {
+                alert("in error");
+            }
+        });
+    }
+});
+</script>

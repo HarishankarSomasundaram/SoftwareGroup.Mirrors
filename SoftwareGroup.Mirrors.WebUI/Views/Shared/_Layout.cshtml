@@ -1,0 +1,190 @@
+﻿@{
+   Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Mirrors v3</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/bootstrap-switch.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/jquery-jvectormap-1.2.2.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/smartadmin-production.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/smartadmin-skins.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <link href="~/Content/css/SmartAdmin.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+
+    @Html.DevExpress().GetScripts(
+            new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+            new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+            new Script { ExtensionSuite = ExtensionSuite.GridView },
+            new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+            new Script { ExtensionSuite = ExtensionSuite.Editors },
+            new Script { ExtensionSuite = ExtensionSuite.Chart },
+            new Script { ExtensionSuite = ExtensionSuite.TreeList }
+        )
+
+    @Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+        )
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+</head>
+
+<body class="">
+
+    <!-- #HEADER -->
+    <header id="header">
+        <div id="logo-group">
+            <span id="logo"> <img src="@Url.Content("~/Content/img/logo.png")" alt="SmartAdmin"> </span>
+        </div>
+
+        <!-- #TOGGLE LAYOUT BUTTONS -->
+        <!-- pulled right: nav area -->
+        <div class="pull-right">
+
+            <!-- collapse menu button -->
+            <div id="hide-menu" class="btn-header pull-right">
+                <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+            </div>
+            <!-- end collapse menu -->
+            <!-- logout button -->
+            <div id="logout" class="btn-header transparent pull-right">
+                <span> <a href="@Url.Content("~/Account/Login")" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+            </div>
+            <!-- end logout button -->
+            <!-- #SEARCH -->
+            <!-- input: search field -->
+            <form action="#ajax/search.html" class="header-search pull-right">
+                <input id="search-fld" type="text" name="param" placeholder="Find reports and more" data-autocomplete='[]'>
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
+            </form>
+            <!-- end input: search field -->
+            <!-- fullscreen button -->
+            <div id="fullscreen" class="btn-header transparent pull-right">
+                <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+            </div>
+            <!-- end fullscreen button -->
+
+        </div>
+        <!-- end pulled right: nav area -->
+    </header>
+    <!-- END HEADER -->
+    <!-- #NAVIGATION -->
+
+    <!-- Left panel : Navigation area -->
+    <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+    <aside id="left-panel">
+        <!-- User info -->
+        <div class="login-info">
+            <span>
+                <!-- User image size is adjusted inside CSS, it should stay as is -->
+                <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                    <span class="label pull-left">
+                        <small>@Html.Raw(Context.User.Identity.Name)</small>
+                        
+                    </span>
+                </a>
+            </span>
+        </div>
+        <!-- end user info -->
+        <!-- NAVIGATION -->
+        @Html.Partial("_NavigationTreePartial", ViewData)
+        <span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+    </aside>
+    <!-- END NAVIGATION -->
+
+    <!-- #MAIN PANEL -->
+    <div id="main" role="main">
+        <!-- RIBBON -->
+        <div id="ribbon">
+            <!-- breadcrumb -->
+            <ol class="breadcrumb">
+                <li>@ViewBag.Title</li>
+                @if (ViewBag.SubTitle != null)
+                {
+                    <li>@ViewBag.SubTitle</li>
+                }
+            </ol>
+            <!-- end breadcrumb -->
+            <!-- You can also add more buttons to the
+            ribbon for further usability
+
+            Example below:
+
+            <span class="ribbon-button-alignment pull-right">
+            <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+            <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+            <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+            </span> -->
+
+        </div>
+        <!-- END RIBBON -->
+
+        <!-- #MAIN CONTENT -->
+        <div id="content">
+            @RenderBody()
+        </div>
+        <!-- END #MAIN CONTENT -->
+    
+    </div>
+    <!-- END #MAIN PANEL -->
+
+
+    <!--================================================== -->
+    <!-- #PLUGINS -->
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script>
+        if (!window.jQuery) {
+            document.write('');
+        }
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+        if (!window.jQuery.ui) {
+            document.write('');
+        }
+    </script>*@
+    
+   
+
+    <!--[if IE 8]>
+        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+    <![endif]-->
+
+
+    <!-- MAIN APP JS FILE -->
+    <script src="@Url.Content("~/Scripts/sly.js")        "></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-switch.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.swatchbook.js")"></script>
+    <script src="@Url.Content("~/Scripts/highcharts.js")"></script>    
+    <script src="@Url.Content("~/Scripts/highcharts-3d.js")"></script>   
+    <script src="@Url.Content("~/Scripts/app.min.js")"></script>     
+    <script src="@Url.Content("~/Scripts/SmartAdmin.js")"></script>
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

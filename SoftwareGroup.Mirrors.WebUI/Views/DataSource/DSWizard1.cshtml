@@ -1,0 +1,29 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.DSWizard1ViewModel
+@using SoftwareGroup.Mirrors.DataEntity.DataSource
+
+
+<div>
+    <form class="navbar-form navbar-left" action="@Url.Content("~/DataSource/DSWizard1")" method="post" role="search">
+        @*<div style="margin-top:10px;margin-bottom:10px;">
+            <span>@Html.RadioButtonFor(m => m.DataSourceType, "OLTP", new { @class = "selectDataSource" }) From SQL Server</span>
+            <p>Create a Connection to the SQL server View or Stored Procedure</p>
+        </div>
+        <div style="margin-bottom:10px">
+            <span>@Html.RadioButtonFor(m => m.DataSourceType, "OLAP", new { @class = "selectDataSource" })From Analysis Services</span>
+            <p>Create a connection to the SQL Server Analysis Cubes </p>
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <span>@Html.RadioButtonFor(m => m.DataSourceType, "Others", new { @class = "selectDataSource" })From Excel or CSV</span>
+        </div>*@
+        @foreach (DataConnectionType dataConnectionType in Model.ConnectionTypes)
+        { 
+            <span>@Html.RadioButtonFor(m=>m.ConnectionTypeID,dataConnectionType.ConnectionTypeID, new { @class = "selectDataSource" })@dataConnectionType.ConnectionTypeName</span>
+            <br />
+            <br />
+        }
+        <div class="input-group col-lg-6">
+            <button type="submit" class="btn btn-primary pull-right">Next</button>
+        </div>
+    </form>
+</div>

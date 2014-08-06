@@ -1,0 +1,8 @@
+﻿@Html.DevExpress().DockManager(
+    settings =>
+    {
+        settings.Name = "dockManager";
+        settings.ClientSideEvents.PanelCloseUp = "function(s, e) { DeleteWidget(e.panel.panelUID) }";
+        settings.ClientSideEvents.AfterDock = "function(s, e) { SaveWidgetLayout(e.panel) }";    
+    }
+).GetHtml()

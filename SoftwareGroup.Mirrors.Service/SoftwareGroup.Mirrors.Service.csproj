@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{777186E9-E114-4CFE-925B-F7EBB37A8348}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoftwareGroup.Mirrors.Service</RootNamespace>
+    <AssemblyName>SoftwareGroup.Mirrors.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analysis\WidgetTypeService.cs" />
+    <Compile Include="DataSourceService.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftwareGroup.Mirrors.Common\SoftwareGroup.Mirrors.Common.csproj">
+      <Project>{a02516f1-2b7b-4e54-a064-ed46c0ec567d}</Project>
+      <Name>SoftwareGroup.Mirrors.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoftwareGroup.Mirrors.Core\SoftwareGroup.Mirrors.Core.csproj">
+      <Project>{d7a0d515-fd3e-4149-8ee0-beb9c2ee4515}</Project>
+      <Name>SoftwareGroup.Mirrors.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoftwareGroup.Mirrors.DataEntity\SoftwareGroup.Mirrors.DataEntity.csproj">
+      <Project>{479c3114-fa83-4535-8f6c-7da26f5e73c4}</Project>
+      <Name>SoftwareGroup.Mirrors.DataEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoftwareGroup.Mirrors.Infra\SoftwareGroup.Mirrors.Infra.csproj">
+      <Project>{02948d96-42ae-4144-a52b-303a741e6fa6}</Project>
+      <Name>SoftwareGroup.Mirrors.Infra</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

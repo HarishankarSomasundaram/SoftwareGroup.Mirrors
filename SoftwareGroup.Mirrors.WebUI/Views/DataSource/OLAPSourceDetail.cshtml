@@ -1,0 +1,151 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.SourceDetailViewModel 
+
+
+
+<div class="panel panel-default" id="dataDetails">
+    <div class="panel-heading">
+        <h3 class="panel-title">Select Data </h3>
+    </div>
+    <div class="panel-body row">
+        <form class="navbar-form navbar-left" action="@Url.Content("~/DataSource/OLAPSourceDetail")" method="post" role="search" id="AnalysisServerDetails">
+            @Html.ValidationSummary()
+            @Html.HiddenFor(m => m.ConnectionTypeID)
+            @Html.HiddenFor(m => m.ConnectionTypeName)
+            @Html.HiddenFor(m => m.ProviderName)
+            @Html.HiddenFor(m => m.AuthenticationType)
+            @Html.HiddenFor(m => m.ServerName)
+            @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.Password)
+            @Html.HiddenFor(m => m.InitialCatalog) 
+            @Html.HiddenFor(m => m.ConnectionName)
+            @Html.HiddenFor(m=>m.NewOrExistingConnection)
+           @for(int i=0;i<Model.Objects.Count;i++)
+           { 
+             @Html.HiddenFor(m=>m.Objects[i].Text);
+             @Html.HiddenFor(m => m.Objects[i].Value);
+           }
+            @for (int i = 0; i < Model.Elements.Count; i++)
+            {
+                @Html.HiddenFor(m => m.Elements[i]);
+
+            }
+            @for (int i = 0; i < Model.Measures.Count; i++)
+            {
+                @Html.HiddenFor(m => m.Measures[i]);
+
+            }
+            @for (int i = 0; i < Model.ElementsList.Count; i++)
+            {
+                @Html.HiddenFor(m => m.ElementsList[i]);
+
+            }
+            @for (int i = 0; i < Model.MeasuresList.Count; i++)
+            {
+                @Html.HiddenFor(m => m.MeasuresList[i]);
+
+            }
+            <div style="margin-top:10px;margin-bottom:10px;">
+                @Html.LabelFor(m => m.Objects)<br />
+                @Html.DropDownListFor(m => m.Object, Model.Objects)
+
+            </div>
+
+            <div style="margin-top:10px;margin-bottom:10px;min-width:100px;min-height:50px;">
+                <label>Measures</label><br />
+                @Html.ListBoxFor(m => m.Elements, new MultiSelectList(Model.ElementsList), new { style = "min-width:300px" })
+
+            </div>
+            <div style="margin-top:10px;margin-bottom:10px;min-width:100px;min-height:50px;">
+                <label>Measures</label><br />
+                @Html.ListBoxFor(m => m.Measures, new MultiSelectList(Model.MeasuresList), new { style = "min-width:300px" })
+
+            </div>
+            <div style="margin-top:10px;margin-bottom:10px;">
+                @Html.LabelFor(m => m.SourceName)<br />
+                @Html.TextBoxFor(m => m.SourceName)
+
+            </div>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary pull-right">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+        $(document).ready(
+            function () {
+                $('#Object').change(function () {
+                    alert("ViewTriggered");
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetDimensions", "DataSource")',
+                        data: $("#AnalysisServerDetails").serialize(),
+                        success: function (data) {
+                            $('#Elements').empty();
+                            $('[name*="ElementsList"]').remove();
+                            for (i = 0; i < data.length;i++)
+                            {
+                                var div_data = "<option value=" + data[i] + ">" + data[i] + "</option>";
+                                $(div_data).appendTo('#Elements');
+                                var name = "ElementsList[" + i + "]";
+                                var value = data[i];
+                                var id = "ElementsList_" + i + "_";
+                                var newElement = $('<input></input>');
+                                $(newElement).appendTo('#AnalysisServerDetails');
+                                $(newElement).attr("name", name);
+                                $(newElement).attr("id", id);
+                                $(newElement).attr("value", value);
+                                $(newElement).attr("type", "hidden");
+
+                            }
+                            getMeasures();
+                        },
+                        error: function (data) {
+                            alert("in error");
+                        }
+                    });
+                }
+                     );
+
+                function getMeasures()
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetMeasures", "DataSource")',
+                        data: $("#AnalysisServerDetails").serialize(),
+                        success: function (data) {
+                            $('#Measures').empty();
+                            $('[name*="MeasuresList"]').remove();
+                            var columnArray = [data];
+                            alert(data);
+                            alert(columnArray);
+                            alert("in new function");
+                            for (i = 0; i < data.length; i++) {
+                                var div_data = "<option value=" + data[i] + ">" + data[i] + "</option>";
+                                var name = "MeasuresList[" + i + "]";
+                                var value = data[i];
+                                var id = "MeasuresList_" + i + "_";
+                                var newElement = $('<input></input>');
+                                $(newElement).attr("name", name);
+                                $(newElement).attr("id", id);
+                                $(newElement).attr("value", value);
+                                $(newElement).attr("type", "hidden");
+                                $(newElement).appendTo('#AnalysisServerDetails');
+                                $(div_data).appendTo('#Measures');
+                            }
+                        },
+                        error: function (data) {
+                            alert("in error");
+                        }
+                    });
+                
+                }
+            }
+
+
+
+        );
+
+</script>
+            }
+

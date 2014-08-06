@@ -1,0 +1,36 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.ConnectionTypeViewModel
+@using SoftwareGroup.Mirrors.DataEntity.DataSource
+
+<h2>Datasource Manager</h2>
+<p>@ViewBag.Message</p>
+<div id="SelectDataBase"></div>
+<div id="ConnectDataBase"></div>
+
+    <div class="panel panel-default" id="selectdatasource">
+        <div class="panel-heading">
+            <h3 class="panel-title">Select DataSource Type</h3>
+        </div>
+        <div class="panel-body row">
+                <div class="input-group col-lg-6">
+
+                    <div>
+                        <form class="navbar-form navbar-left" action="@Url.Content("~/DataSource/SourceType")" method="post" role="search">
+                            @Html.ValidationSummary()
+                           <br />
+                            @foreach (DataConnectionType dataConnectionType in Model.ConnectionTypes)
+                            {
+                                <span>@Html.RadioButtonFor(m => m.ConnectionTypeID, dataConnectionType.ConnectionTypeID, new { @class = "selectDataSource" })@dataConnectionType.ConnectionTypeName</span>
+                                <br />
+                                <br />
+                            }
+                           
+                            <div class="input-group col-lg-6">
+                                <button type="submit" class="btn btn-primary pull-right">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+ 
+

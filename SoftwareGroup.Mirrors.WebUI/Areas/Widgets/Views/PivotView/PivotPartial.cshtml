@@ -1,0 +1,32 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Areas.Widgets.Models.PivotViewModel
+
+@Html.DevExpress().PivotGrid(
+settings =>
+{
+    settings.Name = "PivotGrid";
+    settings.CallbackRouteValues = new { Area = "Widgets", Controller = "PivotView", Action = "PivotPartial" };    
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.OptionsPager.RowsPerPage = 20;
+    settings.PivotCustomizationExtensionSettings.Name = "pivotCustomSetting";
+    settings.OptionsView.ShowFilterHeaders = false;
+    settings.OptionsView.ShowDataHeaders = false;
+    settings.OptionsView.ShowRowHeaders = false;
+    settings.OptionsView.ShowColumnHeaders = false;
+    settings.OptionsView.ShowContextMenus = true;
+    settings.OptionsView.ShowHorizontalScrollBar  = true;    
+    settings.PreRender = (sender, e) =>
+    {
+        var pivotGrid = (DevExpress.Web.Mvc.MVCxPivotGrid)sender;
+        pivotGrid.OLAPConnectionString = Model.OlapConnectionString;
+        pivotGrid.RetrieveFields(DevExpress.XtraPivotGrid.PivotArea.FilterArea, false);
+    };
+    settings.AfterPerformCallback = (sender, e) =>
+    {
+        Model.LayoutString = ((MVCxPivotGrid)sender).SaveLayoutToString();
+    };
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+            ((MVCxPivotGrid)sender).LoadLayoutFromString(Model.LayoutString, PivotGridWebOptionsLayout.DefaultLayout);
+    };
+    
+}).BindToOLAP(Model.OlapConnectionString).GetHtml()

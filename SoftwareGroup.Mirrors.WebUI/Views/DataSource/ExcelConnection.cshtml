@@ -1,0 +1,33 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.ExcelConnectionViewModel
+@using SoftwareGroup.Mirrors.DataEntity.DataSource
+
+<h2>Datasource Manager</h2>
+<p>@ViewBag.Message</p>
+<div id="SelectDataBase"></div>
+<div id="ConnectDataBase"></div>
+
+<div class="panel panel-default" id="ExcelConnection">
+    <div class="panel-heading">
+        <h3 class="panel-title">Excel Connection Details </h3>
+    </div>
+    <div class="panel-body row">
+        <div class="input-group col-lg-6">
+
+            <div>
+                <form class="navbar-form navbar-left" action="@Url.Content("~/DataSource/ExcelConnection")" method="post" role="search">
+                    @Html.HiddenFor(m=>m.ConnectionTypeID) 
+                    @Html.HiddenFor(m=>m.ConnectionTypeName)
+                    @Html.HiddenFor(m=>m.ProviderName)
+                    <label>Enter the url of the excel</label><br />
+                    @Html.TextBoxFor(m=>m.Url) <br /><br />
+                    <label>Enter a Name for the connection</label><br />
+                    @Html.TextBoxFor(m => m.ConnectionName) <br /><br />
+                    <div class="input-group col-lg-6">
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

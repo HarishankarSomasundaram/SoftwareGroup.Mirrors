@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31001a1878704278b9e0663b86c1295d" Name="Diagram1">
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.Analysis" Width="1.5" PointX="8" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.AnalysisGroup" Width="1.5" PointX="5.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataConnection" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataConnectionType" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataSource" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataSourceElement" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataSourceParameter" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.DataSourceType" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.UserProfile" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.UserRole" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.UserRoleMap" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.Widget" Width="1.5" PointX="10.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="MirrorsEntitiesModel.WidgetType" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_AnalysisAnalysisGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_WidgetAnalysis" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_DataConnection_DataConnectionType" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_DataSource_DataConnection" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_DataSource_DataSourceType" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_DataSourceElement_DataSource" ManuallyRouted="false" />
+        <AssociationConnector Association="MirrorsEntitiesModel.FK_ParameterID_DataSource" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

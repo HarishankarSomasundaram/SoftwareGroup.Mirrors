@@ -1,0 +1,141 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Models.Analysis.AnalysisModel
+
+@{
+    ViewBag.Title = "CreateAnalysis";
+}
+
+
+<style>
+    #feedback {
+        font-size: 1.4em;
+    }
+
+    #selectable .ui-selecting {
+        background: inherit;
+    }
+
+    #selectable .ui-selected {
+        background: #F39814;
+        color: white;
+    }
+
+    #selectable {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 450px;
+    }
+
+    .layout {
+        float: left;
+    }
+
+    #selectable li {
+        margin: 3px;
+        float: left;
+        width: 100px;
+        height: 100px;
+        font-size: 4em;
+        background: inherit;
+    }
+
+        #selectable li div {
+            border: 1px solid black;
+            float: left;
+            margin: 4px;
+        }
+</style>
+
+<script>
+    $(document).ready(
+        function () {
+            $('#AnalysisGroupName').css('display', 'none');
+            $("#selectable").selectable({
+                selecting: function (event, ui) {
+                    if ($(".ui-selected, .ui-selecting").length > 1) {
+                        $(ui.selecting).removeClass("ui-selecting");
+                    }
+                },
+                stop: function () {
+                    $(".ui-selected", this).each(function () {
+                        var index = $("#selectable li").index(this);
+                        $("#LayoutID").val(index);
+                    });
+                }
+            })
+
+            $("#AnalysisGroupButton").click(function () {
+                $('#AnalysisGroup').css('display', 'none');
+                $(this).css('display', 'none');
+                $('#AnalysisGroupName').css('display', 'block');
+            });
+        });
+ 
+</script>
+
+@using (Html.BeginForm("NewAnalysis", "Analysis"))
+{
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Analysis Name:</label>
+            @Html.TextBoxFor(m => m.AnalysisName, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Analysis Description:</label>
+            @Html.TextAreaFor(m => m.AnalysisDescription, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group" id="AnalysisGroup">
+            <label>Analysis Group:</label>
+            @Html.DropDownListFor(m => m.AnalysisGroupID, new SelectList((List<SoftwareGroup.Mirrors.DataEntity.Analysis.AnalysisGroup>)ViewBag.AnalysisGroups, "AnalysisGroupID", "AnalysisGroupName", ((List<SoftwareGroup.Mirrors.DataEntity.Analysis.AnalysisGroup>)ViewBag.AnalysisGroups).First().AnalysisGroupID), new { @class = "form-control" })
+        </div>
+
+        <div class="form-group" id="AnalysisGroupButton">
+            <button type="button">New Analysis Group</button>
+        </div>
+
+        <div class="form-group" id="AnalysisGroupName">
+            <label>Analysis Group Name:</label>
+            @Html.TextBoxFor(m => m.AnalysisGroupName, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <ul id="selectable" style="">
+                <li class="ui-state-default layout">
+                    <div style="width:90%;height:90%;margin:4px;"></div>
+                </li>
+                <li class="ui-state-default layout">
+                    <div style="width:40%;height:90%;"></div>
+                    <div style="width:40%;height:90%;"></div>
+                </li>
+                <li class="ui-state-default layout">
+                    <div style="width:23%;height:90%; "></div>
+                    <div style="width:23%;height:90%; "></div>
+                    <div style="width:23%;height:90%; "></div>
+                </li>
+                <li class="ui-state-default layout">
+                    <div style="width:90%;height:40%; "></div>
+                    <div style="width:40%;height:40%; "></div>
+                    <div style="width:40%;height:40%; "></div>
+                </li>
+                @*<li class="ui-state-default layout">
+                    <div style="width:90%;height:40%; "></div>
+                    <div style="width:23%;height:40%; "></div>
+                    <div style="width:23%;height:40%; "></div>
+                    <div style="width:23%;height:40%; "></div>
+                </li>*@
+            </ul>
+        </div>
+
+
+        <div class="form-group" style="clear:both">
+            <input type="hidden" id="LayoutID" name="LayoutID" value="" />
+            <div>
+                <button type="submit" class="btn btn-primary pull-right">New Analysis</button>
+            </div>
+        </div>
+
+    </div>
+
+}

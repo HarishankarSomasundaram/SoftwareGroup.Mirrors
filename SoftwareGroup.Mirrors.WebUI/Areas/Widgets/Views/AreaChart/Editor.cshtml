@@ -1,0 +1,32 @@
+﻿@model SoftwareGroup.Mirrors.WebUI.Areas.Widgets.Models.AreaChartModel
+@using JDash.Mvc
+<div style="width: 600px;">
+    @using (Ajax.BeginForm(new AjaxOptions() { }))
+    {
+        <div> 
+            @Html.Label("Title") 
+            @Html.JDash().DashletTitleEditor().Render() 
+        </div>
+        
+        <fieldset>
+            <legend>Set Area Chart Options</legend>
+            <div class="form-group">                                
+                <div>
+                    @Html.LabelFor(m => m.SubTitle)
+                    @Html.TextBoxFor(m => m.SubTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SubTitle)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.XAxisTitle)
+                    @Html.TextBoxFor(m => m.XAxisTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.XAxisTitle)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.YAxisTitle)
+                    @Html.TextBoxFor(m => m.YAxisTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.YAxisTitle)
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
